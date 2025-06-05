@@ -16,7 +16,6 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    // Garante nome único
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, uniqueSuffix + path.extname(file.originalname));
   },
@@ -30,7 +29,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-// Para servir imagens estáticas
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const JWT_SECRET = process.env.JWT_SECRET || "redo";
@@ -48,7 +46,6 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-// Rota base para verificar se a API está funcionando
 app.get("/", (req, res) => {
   res.send("API do backend está funcionando!");
 });
